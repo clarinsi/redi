@@ -20,3 +20,7 @@ There is an option for using large language models for contextual disambiguation
 * http://nlp.ffzg.hr/data/reldi/wikitweetweb.sl.bin (8.3G)
 
 If you have the language models in your working directory, you can disambiguate in context by adding the ```-l``` flag.
+
+## Dependencies
+
+* pypi-kenlm
