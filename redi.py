@@ -12,7 +12,6 @@ lm_lambda=0.8
 
 import os
 reldir=os.path.dirname(os.path.abspath(__file__))
-#os.path.dirname(sys.argv[0])+'/'
 
 def get_uppers(token_list):
   uppers=[]
