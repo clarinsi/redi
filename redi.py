@@ -1,10 +1,10 @@
-#!/usr/bin/python
-#-*-coding:utf8-*-
+#!/usr/bin/python3
+#-*-encoding:utf-8-*-
 
 import sys
 import os
 import kenlm
-import cPickle as pickle
+import pickle
 from random import randint
 
 tm_lambda=0.2
@@ -57,10 +57,14 @@ def read_and_write(istream,index,ostream,lm):
   for line in istream:
     if line.strip()=='':
       token_list=redi([e[index] for e in entry_list],lexicon,lm)
-      ostream.write(''.join(['\t'.join(entry)+'\t'+token+'\n' for entry,token in zip(entry_list,token_list)]).encode('utf8')+'\n')
+      print('entry list')
+      print(entry_list)
+      print('token list')
+      print(token_list)
+      ostream.write(''.join(['\t'.join(entry)+'\t'+token+'\n' for entry, token in zip(entry_list,token_list)])+'\n')
       entry_list=[]
     else:
-      entry_list.append(line[:-1].decode('utf8').split('\t'))
+      entry_list.append(line[:-1].split('\t'))
 
 if __name__=='__main__':
   import argparse
@@ -69,7 +73,7 @@ if __name__=='__main__':
   parser.add_argument('-l','--language-model',help='use the language model',action='store_true')
   parser.add_argument('-i','--index',help='index of the column to be processed',type=int,default=0)
   args=parser.parse_args()
-  lexicon=pickle.load(open(os.path.join(reldir,'wikitweetweb.'+args.lang+'.tm')))
+  lexicon=pickle.load(open(os.path.join(reldir,'wikitweetweb.'+args.lang+'.tm'), 'rb'))
   if args.language_model:
     cnf=kenlm.Config()
     cnf.load_method=0
