@@ -38,7 +38,7 @@ def redi(token_list,lexicon,lm):
   for index,token in enumerate(token_list):
     if token in lexicon:
       if len(lexicon[token])==1:
-        token_list[index]=lexicon[token].keys()[0]
+        token_list[index]=list(lexicon[token].keys())[0]
       else:
         if lm==None:
           token_list[index]=sorted(lexicon[token].items(),key=lambda x:-x[1])[0][0]
