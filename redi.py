@@ -57,10 +57,6 @@ def read_and_write(istream,index,ostream,lm):
   for line in istream:
     if line.strip()=='':
       token_list=redi([e[index] for e in entry_list],lexicon,lm)
-      print('entry list')
-      print(entry_list)
-      print('token list')
-      print(token_list)
       ostream.write(''.join(['\t'.join(entry)+'\t'+token+'\n' for entry, token in zip(entry_list,token_list)])+'\n')
       entry_list=[]
     else:
