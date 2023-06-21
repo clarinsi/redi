@@ -52,12 +52,29 @@ def redi(token_list,lexicon,lm):
     token_list[index]=sorted(hypotheses,key=lambda x:-hypotheses[x])[0]
   return apply_uppers(uppers,token_list)
 
+def merge_tokens(entry_list, token_list):
+  merged_text = ''
+  right_pos = 0
+  for (e, t) in zip(entry_list, token_list):
+    left_pos, right_pos_new = e[0].split('.')[3].split('-')
+    left_pos = int(left_pos)
+    right_pos_new = int(right_pos_new)
+
+    if left_pos == right_pos + 1:
+      merged_text += t
+    else:
+      merged_text += ' ' + t
+    right_pos = right_pos_new
+  return merged_text
+
 def read_and_write(istream,index,ostream,lm):
   entry_list=[]
   for line in istream:
     if line.strip()=='':
       token_list=redi([e[index] for e in entry_list],lexicon,lm)
-      ostream.write(''.join(['\t'.join(entry)+'\t'+token+'\n' for entry, token in zip(entry_list,token_list)])+'\n')
+      print(merge_tokens(entry_list, token_list))
+      # print(' '.join(token_list))
+      # ostream.write(''.join(['\t'.join(entry)+'\t'+token+'\n' for entry, token in zip(entry_list,token_list)])+'\n')
       entry_list=[]
     else:
       entry_list.append(line[:-1].split('\t'))
